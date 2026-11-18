@@ -44,6 +44,8 @@ namespace EFCore3.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ParentCategoryId");
+
                     b.ToTable("Category");
                 });
 
@@ -55,6 +57,9 @@ namespace EFCore3.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("CourseLevel")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -62,6 +67,9 @@ namespace EFCore3.Migrations
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
+
+                    b.Property<int>("InstructorId")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Price")
                         .HasPrecision(18, 2)
@@ -80,11 +88,21 @@ namespace EFCore3.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("InstructorId");
+
                     b.ToTable("Course");
                 });
 
             modelBuilder.Entity("EFCore3.Enteties.Enrollment", b =>
                 {
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("EnrollmentDate")
                         .HasColumnType("datetime2");
 
@@ -99,6 +117,10 @@ namespace EFCore3.Migrations
                     b.Property<decimal>("ProgressPercentage")
                         .HasPrecision(5, 2)
                         .HasColumnType("decimal(5,2)");
+
+                    b.HasKey("CourseId", "StudentId");
+
+                    b.HasIndex("StudentId");
 
                     b.ToTable("Enrollment");
                 });
@@ -165,6 +187,76 @@ namespace EFCore3.Migrations
                         .IsUnique();
 
                     b.ToTable("Student");
+                });
+
+            modelBuilder.Entity("EFCore3.Enteties.Category", b =>
+                {
+                    b.HasOne("EFCore3.Enteties.Category", "ParentCategory")
+                        .WithMany("SubCategories")
+                        .HasForeignKey("ParentCategoryId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("ParentCategory");
+                });
+
+            modelBuilder.Entity("EFCore3.Enteties.Course", b =>
+                {
+                    b.HasOne("EFCore3.Enteties.Category", "Category")
+                        .WithMany("Courses")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EFCore3.Enteties.Instructor", "Instructor")
+                        .WithMany("Courses")
+                        .HasForeignKey("InstructorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Instructor");
+                });
+
+            modelBuilder.Entity("EFCore3.Enteties.Enrollment", b =>
+                {
+                    b.HasOne("EFCore3.Enteties.Course", "Course")
+                        .WithMany("Enrollments")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EFCore3.Enteties.Student", "Student")
+                        .WithMany("Enrollments")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("EFCore3.Enteties.Category", b =>
+                {
+                    b.Navigation("Courses");
+
+                    b.Navigation("SubCategories");
+                });
+
+            modelBuilder.Entity("EFCore3.Enteties.Course", b =>
+                {
+                    b.Navigation("Enrollments");
+                });
+
+            modelBuilder.Entity("EFCore3.Enteties.Instructor", b =>
+                {
+                    b.Navigation("Courses");
+                });
+
+            modelBuilder.Entity("EFCore3.Enteties.Student", b =>
+                {
+                    b.Navigation("Enrollments");
                 });
 #pragma warning restore 612, 618
         }

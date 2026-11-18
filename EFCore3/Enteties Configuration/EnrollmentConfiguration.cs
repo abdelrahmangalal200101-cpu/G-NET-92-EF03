@@ -15,7 +15,9 @@ namespace EFCore3.Enteties_Configuration
             builder.Property(e => e.ProgressPercentage).IsRequired().HasPrecision(5, 2);
             builder.Property(e => e.EnrollmentStatus).IsRequired().HasConversion<string>();
             builder.Property(e => e.FinalGrade).HasPrecision(5, 2);
-            builder.HasNoKey();
+            builder.HasKey(e => new { e.CourseId, e.StudentId });
+            builder.HasOne(e => e.Student).WithMany(s => s.Enrollments).HasForeignKey(e => e.StudentId);
+            builder.HasOne(e => e.Course).WithMany(c => c.Enrollments).HasForeignKey(e => e.CourseId);
         }
     }
 }

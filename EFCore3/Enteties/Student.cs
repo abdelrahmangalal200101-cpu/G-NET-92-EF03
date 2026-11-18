@@ -11,5 +11,7 @@ namespace EFCore3.Enteties
         public string Email { get; set; }
         public DateTime DateOfBirth { get; set; }
 
+        public ICollection<Enrollment> Enrollments { get; set; } = new HashSet<Enrollment>();
+
     }
 }

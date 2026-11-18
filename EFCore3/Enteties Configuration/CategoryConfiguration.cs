@@ -14,6 +14,7 @@ namespace EFCore3.Enteties_Configuration
             builder.HasKey(c => c.Id);
             builder.Property(c => c.Name).IsRequired().HasMaxLength(100);
             builder.Property(c => c.Description).HasMaxLength(200);
+            builder.HasOne(c => c.ParentCategory).WithMany(s => s.SubCategories).HasForeignKey(c => c.ParentCategoryId).OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

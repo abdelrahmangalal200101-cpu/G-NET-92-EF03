@@ -13,6 +13,8 @@ namespace EFCore3.Enteties
 
         public DateTime JoinedDate { get; set; }
 
+        public ICollection<Course> Courses { get; set; } = new HashSet<Course>();
+
 
     }
 }

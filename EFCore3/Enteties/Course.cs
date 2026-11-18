@@ -15,6 +15,13 @@ namespace EFCore3.Enteties
         public bool isPublished { get; set; }
         public DateTime? PublishedDate { get; set; } 
 
+        public int InstructorId { get; set; }
+        public Instructor Instructor { get; set; }
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
+
+        public ICollection<Enrollment> Enrollments { get; set; } = new HashSet<Enrollment>();
+
 
     }
 }
