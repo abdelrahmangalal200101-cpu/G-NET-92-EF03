@@ -92,6 +92,15 @@ namespace EFCore3
 
 
             #endregion
+            #region Read Questions 
+            #region Question 01
+            // Find a course: Get a course by Id using Find, then by title using FirstOrDefault.
+            // Print "not found" when the result is null.
+
+            Methods.FindCourseById(context, 1);
+            Methods.FindByTitle(context, "C# Fundamentals");
+            #endregion
+            #endregion
         }
 
 

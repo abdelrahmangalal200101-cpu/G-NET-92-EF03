@@ -67,5 +67,34 @@ namespace EFCore3
             context.SaveChanges();
             Console.WriteLine($"Enrollment Was Added Successfully With StudentId {enrollment.StudentId}, And Course {enrollment.CourseId}");
         }
+
+        public static void FindCourseById(OnlineLearningDbContext context, int id) 
+        {
+            var FoundedCourse = context.Course.Find(id);
+
+            if (FoundedCourse == null) 
+            {
+                Console.WriteLine($"There Is Bo Course With Id {id}");
+            }
+            else
+            {
+                Console.WriteLine($"Course Found: {FoundedCourse.Title} - Price: {FoundedCourse.Price}");
+            }
+
+        }
+
+        public static void FindByTitle(OnlineLearningDbContext context, string title) 
+        {
+            var FoundedCourse = context.Course.FirstOrDefault(c => c.Title == title);
+
+            if (FoundedCourse == null)
+            {
+                Console.WriteLine("not Found");
+            }
+            else 
+            {
+                Console.WriteLine($"Course Found: {FoundedCourse.Title} - Price: {FoundedCourse.Price}");
+            }
+        }
     }
 }
