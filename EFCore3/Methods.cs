@@ -14,7 +14,7 @@ namespace EFCore3
             Console.WriteLine($"Instructor added successfully with Id: {instructor.Id}");
         }
 
-        public static void AddCourse(OnlineLearningDbContext context , Course course) 
+        public static void AddCourse(OnlineLearningDbContext context, Course course)
         {
             if (!context.Instructor.Any(i => i.Id == course.InstructorId))
             {
@@ -30,6 +30,16 @@ namespace EFCore3
             Console.WriteLine($"Course is Added Succesfully With Name {course.Title} , With Id {course.Id}");
 
 
+        }
+
+        public static void AddStudents(OnlineLearningDbContext context, List<Student> students)
+        {
+            context.AddRange(students);
+            context.SaveChanges();
+            foreach (Student s in students)
+            {
+                Console.WriteLine($"Student Added Successfully With Id {s.Id}");
+            }
         }
     }
 }

@@ -43,6 +43,35 @@ namespace EFCore3
 
             //Methods.AddCourse(context, course);
             #endregion
+            #region Question 03
+
+            // Add several students: Insert three students using one AddRange and one SaveChanges. Print their generated Ids.
+
+    //        List<Student> students = new List<Student>
+    //        {
+    //            new Student
+    //            {
+    //    FullName = "Omar Tarek",
+    //    Email = "omar.tarek@student.com",
+    //    DateOfBirth = new DateTime(2002, 5, 14)
+    //},
+    //            new Student
+    //            {
+    //    FullName = "Nourhan Essam",
+    //    Email = "nourhan.essam@student.com",
+    //    DateOfBirth = new DateTime(2003, 9, 22)
+    //},
+    //            new Student
+    //            {
+    //    FullName = "Youssef Mahmoud",
+    //    Email = "youssef.mahmoud@student.com",
+    //    DateOfBirth = new DateTime(2001, 11, 3)
+    //}
+    //        };
+
+    //        Methods.AddStudents(context, students);
+            #endregion
+
             #endregion
         }
 
