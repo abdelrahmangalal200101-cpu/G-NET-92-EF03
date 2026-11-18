@@ -97,8 +97,14 @@ namespace EFCore3
             // Find a course: Get a course by Id using Find, then by title using FirstOrDefault.
             // Print "not found" when the result is null.
 
-            Methods.FindCourseById(context, 1);
-            Methods.FindByTitle(context, "C# Fundamentals");
+            //Methods.FindCourseById(context, 1);
+            //Methods.FindByTitle(context, "C# Fundamentals");
+            #endregion
+            #region Question 02
+            // Filter courses: Courses priced between two values, ordered by price descending.
+            // Print only the title, level and price.
+
+            Methods.FilterByPrice(context, 600, 1000);
             #endregion
             #endregion
         }

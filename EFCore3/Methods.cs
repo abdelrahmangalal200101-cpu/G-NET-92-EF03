@@ -1,4 +1,5 @@
 ﻿using EFCore3.Enteties;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -94,6 +95,22 @@ namespace EFCore3
             else 
             {
                 Console.WriteLine($"Course Found: {FoundedCourse.Title} - Price: {FoundedCourse.Price}");
+            }
+        }
+
+        public static void FilterByPrice(OnlineLearningDbContext context, decimal minPrice, decimal maxPrice)
+        {
+            var courses = context.Course.AsNoTracking().Where(c => c.Price >= minPrice && c.Price <= maxPrice)
+                .OrderByDescending(c => c.Price).Select(c => new
+                {
+                    c.Title,
+                    c.CourseLevel,
+                    c.Price
+                }).ToList();
+            
+            foreach(var c in courses) 
+            {
+                Console.WriteLine($"Title: {c.Title} | Level: {c.CourseLevel} | Price: {c.Price}");
             }
         }
     }
