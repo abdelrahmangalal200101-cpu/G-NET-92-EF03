@@ -47,30 +47,49 @@ namespace EFCore3
 
             // Add several students: Insert three students using one AddRange and one SaveChanges. Print their generated Ids.
 
-    //        List<Student> students = new List<Student>
-    //        {
-    //            new Student
-    //            {
-    //    FullName = "Omar Tarek",
-    //    Email = "omar.tarek@student.com",
-    //    DateOfBirth = new DateTime(2002, 5, 14)
-    //},
-    //            new Student
-    //            {
-    //    FullName = "Nourhan Essam",
-    //    Email = "nourhan.essam@student.com",
-    //    DateOfBirth = new DateTime(2003, 9, 22)
-    //},
-    //            new Student
-    //            {
-    //    FullName = "Youssef Mahmoud",
-    //    Email = "youssef.mahmoud@student.com",
-    //    DateOfBirth = new DateTime(2001, 11, 3)
-    //}
-    //        };
+            //        List<Student> students = new List<Student>
+            //        {
+            //            new Student
+            //            {
+            //    FullName = "Omar Tarek",
+            //    Email = "omar.tarek@student.com",
+            //    DateOfBirth = new DateTime(2002, 5, 14)
+            //},
+            //            new Student
+            //            {
+            //    FullName = "Nourhan Essam",
+            //    Email = "nourhan.essam@student.com",
+            //    DateOfBirth = new DateTime(2003, 9, 22)
+            //},
+            //            new Student
+            //            {
+            //    FullName = "Youssef Mahmoud",
+            //    Email = "youssef.mahmoud@student.com",
+            //    DateOfBirth = new DateTime(2001, 11, 3)
+            //}
+            //        };
 
-    //        Methods.AddStudents(context, students);
+            //        Methods.AddStudents(context, students);
             #endregion
+            #region Question 04
+            // Enroll a student in a course: Insert an enrollment linking a student and a course.
+            // Check that both exist and that the student is not already enrolled in that course before inserting.
+
+            //Enrollment enrollment = new Enrollment
+            //{
+            //    StudentId = 1,
+            //    CourseId = 4,
+            //    EnrollmentDate = DateTime.Now,
+            //    ProgressPercentage = 0.00m,
+            //    EnrollmentStatus = Status.Active,
+            //    FinalGrade = null
+            //};
+
+            //Methods.EnrollStudent(context, enrollment);
+
+
+            #endregion
+
 
             #endregion
         }

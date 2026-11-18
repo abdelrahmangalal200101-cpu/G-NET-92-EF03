@@ -19,10 +19,12 @@ namespace EFCore3
             if (!context.Instructor.Any(i => i.Id == course.InstructorId))
             {
                 Console.WriteLine("Couldnt Found This Instructor");
+                return;
             }
             if (!context.Category.Any(c => c.Id == course.CategoryId))
             {
                 Console.WriteLine("Couldnt Found This Category");
+                return;
             }
 
             context.Add(course);
@@ -40,6 +42,30 @@ namespace EFCore3
             {
                 Console.WriteLine($"Student Added Successfully With Id {s.Id}");
             }
+        }
+
+        public static void EnrollStudent(OnlineLearningDbContext context,  Enrollment enrollment) 
+        {
+            if(!context.Student.Any(i => i.Id == enrollment.StudentId))
+            {
+                Console.WriteLine("There Is No Student Have Id Like That");
+                return;
+            }
+            if (!context.Course.Any(c => c.Id == enrollment.CourseId))
+            {
+                Console.WriteLine("There Is No Course Have Id Like That");
+                return;
+            }
+
+            if (context.Enrollment.Any(e => e.StudentId == enrollment.StudentId && e.CourseId == enrollment.CourseId)) 
+            {
+                Console.WriteLine("The Student Musnt Access This Course Twice");
+                return;
+            } ;
+
+            context.Add(enrollment);
+            context.SaveChanges();
+            Console.WriteLine($"Enrollment Was Added Successfully With StudentId {enrollment.StudentId}, And Course {enrollment.CourseId}");
         }
     }
 }
