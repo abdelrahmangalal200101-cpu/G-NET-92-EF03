@@ -6,7 +6,7 @@ using System.Text;
 
 namespace EFCore3
 {
-    internal class OnlineLearningDbContext : DbContext
+    public class OnlineLearningDbContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
