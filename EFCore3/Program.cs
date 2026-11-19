@@ -139,7 +139,14 @@ namespace EFCore3
             #region Question 01 
             // Unenroll: Delete an enrollment using its composite key.
 
-            Methods.DeleteEnrollment(context, 1, 1);
+            //Methods.DeleteEnrollment(context, 1, 1);
+            #endregion
+            #region Question 02
+            // Delete a category: First try to remove a category that still has sub-categories and catch the DbUpdateException
+            // then print its message. After that, write a safe version that checks for sub-categories before deleting.
+
+            Methods.UnSafeDeleteCategory(context, 1);
+            Methods.SafeDeleteCategory(context, 1);
             #endregion
             #endregion
         }

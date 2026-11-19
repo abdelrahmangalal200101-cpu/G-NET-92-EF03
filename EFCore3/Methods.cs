@@ -64,7 +64,8 @@ namespace EFCore3
             {
                 Console.WriteLine("The Student Musnt Access This Course Twice");
                 return;
-            };
+            }
+            ;
 
             context.Add(enrollment);
             context.SaveChanges();
@@ -148,7 +149,7 @@ namespace EFCore3
             }
         }
 
-        public static void ChangeCoursePrice(OnlineLearningDbContext context , int CourseId , decimal newPrice)
+        public static void ChangeCoursePrice(OnlineLearningDbContext context, int CourseId, decimal newPrice)
         {
             var course = context.Course.Find(CourseId);
 
@@ -163,31 +164,31 @@ namespace EFCore3
 
         }
 
-        public static void UpdateProgress(OnlineLearningDbContext context, int stdId, int crsId , decimal progperc)
+        public static void UpdateProgress(OnlineLearningDbContext context, int stdId, int crsId, decimal progperc)
         {
-            var enrollment = context.Enrollment.Find(stdId,crsId);
+            var enrollment = context.Enrollment.Find(stdId, crsId);
 
-            if(enrollment == null)
+            if (enrollment == null)
             {
                 Console.WriteLine("There is No Enrollment Like That");
             }
-            
-            if(progperc > 100 || progperc < 0)
+
+            if (progperc > 100 || progperc < 0)
             {
                 Console.WriteLine("Not Allowed Must Be Greater Than 0 Less Than 100");
                 return;
             }
 
-            if (progperc == 100) 
+            if (progperc == 100)
             {
                 enrollment.ProgressPercentage = progperc;
                 enrollment.EnrollmentStatus = Status.Completed;
-                context.SaveChanges(); 
+                context.SaveChanges();
                 Console.WriteLine($"New Enrollment Progress {enrollment.ProgressPercentage} And its Status : {enrollment.EnrollmentStatus}");
             }
-            else 
+            else
             {
-                enrollment.ProgressPercentage= progperc;
+                enrollment.ProgressPercentage = progperc;
                 context.SaveChanges();
                 Console.WriteLine($"New Enrollment Progress {enrollment.ProgressPercentage} And its Status : {enrollment.EnrollmentStatus}");
 
@@ -195,10 +196,10 @@ namespace EFCore3
 
         }
 
-        public static void PublishCourse(OnlineLearningDbContext context , int crsId )
+        public static void PublishCourse(OnlineLearningDbContext context, int crsId)
         {
             var course = context.Course.Find(crsId);
-            if( course == null )
+            if (course == null)
             {
                 Console.WriteLine("Coures Not Found Try Again");
                 return;
@@ -210,11 +211,11 @@ namespace EFCore3
             Console.WriteLine($"New Course Update Published And its Date {course.PublishedDate}");
         }
 
-        public static void DeleteEnrollment(OnlineLearningDbContext context , int stdId ,int crsId )
+        public static void DeleteEnrollment(OnlineLearningDbContext context, int stdId, int crsId)
         {
             var enrollment = context.Enrollment.Find(stdId, crsId);
 
-            if( enrollment == null )
+            if (enrollment == null)
             {
                 Console.WriteLine("Not Found");
                 return;
@@ -223,6 +224,51 @@ namespace EFCore3
             context.Enrollment.Remove(enrollment);
             context.SaveChanges();
             Console.WriteLine("Enrollment Deleted Successfully!");
+
+        }
+
+        public static void UnSafeDeleteCategory(OnlineLearningDbContext context, int ctgrId)
+        {
+            var category = context.Category.Find(ctgrId);
+            if (category == null)
+            {
+                Console.WriteLine("Not Found");
+                return;
+            }
+            try
+            {
+                context.Category.Remove(category);
+                context.SaveChanges();
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public static void SafeDeleteCategory(OnlineLearningDbContext context, int ctgrId)
+        {
+            var category = context.Category.Find(ctgrId);
+
+            if(category == null)
+            {
+                Console.WriteLine("Not Found");
+                return;
+            }
+
+            bool hasSubCategory = context.Category.Any(c => c.ParentCategoryId == ctgrId);
+
+            if (hasSubCategory)
+            {
+                Console.WriteLine("Cannot Remove This Categroy it Has Children");
+            }
+            else 
+            {
+                context.Category.Remove(category);
+                context.SaveChanges();
+            }
+
+
 
         }
     }
