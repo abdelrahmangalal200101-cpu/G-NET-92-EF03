@@ -123,6 +123,12 @@ namespace EFCore3
             //Methods.ChangeCoursePrice(context, 1, 800);
 
             #endregion
+            #region Question 02
+            // ●	Update progress: Find the enrollment by its composite key and set the new progress.
+            // At 100 set the status to Completed. Reject values outside 0–100.
+
+            Methods.UpdateProgress(context, 1, 2, 100);
+            #endregion
             #endregion
         }
 

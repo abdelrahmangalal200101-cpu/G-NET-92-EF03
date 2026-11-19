@@ -1,4 +1,5 @@
 ﻿using EFCore3.Enteties;
+using EFCore3.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -158,6 +159,38 @@ namespace EFCore3
             course.Price = newPrice;
             context.SaveChanges();
             Console.WriteLine($"Course Name :- {course.Title} , New Price = {course.Price}");
+
+        }
+
+        public static void UpdateProgress(OnlineLearningDbContext context, int stdId, int crsId , decimal progperc)
+        {
+            var enrollment = context.Enrollment.Find(stdId,crsId);
+
+            if(enrollment == null)
+            {
+                Console.WriteLine("There is No Enrollment Like That");
+            }
+            
+            if(progperc > 100 || progperc < 0)
+            {
+                Console.WriteLine("Not Allowed Must Be Greater Than 0 Less Than 100");
+                return;
+            }
+
+            if (progperc == 100) 
+            {
+                enrollment.ProgressPercentage = progperc;
+                enrollment.EnrollmentStatus = Status.Completed;
+                context.SaveChanges(); 
+                Console.WriteLine($"New Enrollment Progress {enrollment.ProgressPercentage} And its Status : {enrollment.EnrollmentStatus}");
+            }
+            else 
+            {
+                enrollment.ProgressPercentage= progperc;
+                context.SaveChanges();
+                Console.WriteLine($"New Enrollment Progress {enrollment.ProgressPercentage} And its Status : {enrollment.EnrollmentStatus}");
+
+            }
 
         }
     }
