@@ -104,7 +104,12 @@ namespace EFCore3
             // Filter courses: Courses priced between two values, ordered by price descending.
             // Print only the title, level and price.
 
-            Methods.FilterByPrice(context, 600, 1000);
+            //Methods.FilterByPrice(context, 600, 1000);
+            #endregion
+            #region Question 03
+
+            Methods.FindSubCategory(context, 1);
+            Methods.FindTopCategories(context);
             #endregion
             #endregion
         }

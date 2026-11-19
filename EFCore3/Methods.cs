@@ -113,5 +113,25 @@ namespace EFCore3
                 Console.WriteLine($"Title: {c.Title} | Level: {c.CourseLevel} | Price: {c.Price}");
             }
         }
+
+        public static void FindSubCategory(OnlineLearningDbContext context, int categoryId)
+        {
+            var subCategories = context.Category.AsNoTracking().Where(c => c.ParentCategoryId == categoryId);
+
+            foreach(var c in subCategories)
+            {
+                Console.WriteLine($"SubName : {c.Name} , Id : {c.Id}");
+            }
+        }
+
+        public static void FindTopCategories(OnlineLearningDbContext context) 
+        {
+            var TopCategoreis = context.Category.AsNoTracking().Where(c => c.ParentCategoryId == null);
+
+            foreach (var c in TopCategoreis)
+            {
+                Console.WriteLine($"Top Category Name {c.Name} , Its Id {c.Id}");
+            }
+        }
     }
 }
