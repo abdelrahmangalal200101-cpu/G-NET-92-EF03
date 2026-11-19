@@ -127,7 +127,12 @@ namespace EFCore3
             // ●	Update progress: Find the enrollment by its composite key and set the new progress.
             // At 100 set the status to Completed. Reject values outside 0–100.
 
-            Methods.UpdateProgress(context, 1, 2, 100);
+            //Methods.UpdateProgress(context, 1, 2, 100);
+            #endregion
+            #region Question 03
+            // Publish a course: Set the published flag and the published date.
+
+            Methods.PublishCourse(context, 2);
             #endregion
             #endregion
         }

@@ -3,6 +3,7 @@ using EFCore3.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace EFCore3
@@ -192,6 +193,21 @@ namespace EFCore3
 
             }
 
+        }
+
+        public static void PublishCourse(OnlineLearningDbContext context , int crsId )
+        {
+            var course = context.Course.Find(crsId);
+            if( course == null )
+            {
+                Console.WriteLine("Coures Not Found Try Again");
+                return;
+            }
+
+            course.isPublished = true;
+            course.PublishedDate = DateTime.Now;
+            context.SaveChanges();
+            Console.WriteLine($"New Course Update Published And its Date {course.PublishedDate}");
         }
     }
 }
