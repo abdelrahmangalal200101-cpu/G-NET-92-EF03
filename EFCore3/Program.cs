@@ -145,8 +145,21 @@ namespace EFCore3
             // Delete a category: First try to remove a category that still has sub-categories and catch the DbUpdateException
             // then print its message. After that, write a safe version that checks for sub-categories before deleting.
 
-            Methods.UnSafeDeleteCategory(context, 1);
-            Methods.SafeDeleteCategory(context, 1);
+            //Methods.UnSafeDeleteCategory(context, 1);
+            //Methods.SafeDeleteCategory(context, 1);
+            #endregion
+            #region Question 03
+
+            //Delete a course: Delete a course that has enrollments. Print the number of its enrollments before and after,
+            //and explain in a comment why they were removed.
+
+            Methods.DeleteCourse(context, 1);
+
+            // The related enrollments were removed automatically because the relationship
+            // between Course and Enrollment is configured with Cascade Delete,
+            // so it will delete any dependent in Enrollments
+
+
             #endregion
             #endregion
         }

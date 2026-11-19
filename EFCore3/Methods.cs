@@ -271,5 +271,28 @@ namespace EFCore3
 
 
         }
+
+        public static void DeleteCourse(OnlineLearningDbContext context, int crsId) 
+        {
+            var course = context.Course.Find(crsId);
+            if (course == null)
+            {
+                Console.WriteLine("Not Found");
+                return;
+            }
+            var enrollmentsbefore = context.Enrollment.Count(e => e.CourseId == crsId);
+            Console.WriteLine($"Enrollments Before Deletion {enrollmentsbefore}");
+
+
+            context.Course.Remove(course);
+            context.SaveChanges();
+
+            var enrollmentsAfter = context.Enrollment.Count(e => e.CourseId == crsId);
+            Console.WriteLine($"Enrollments After Deletion {enrollmentsAfter}");
+
+
+
+        }
+
     }
 }
