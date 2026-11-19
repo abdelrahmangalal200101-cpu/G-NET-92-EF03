@@ -45,9 +45,9 @@ namespace EFCore3
             }
         }
 
-        public static void EnrollStudent(OnlineLearningDbContext context,  Enrollment enrollment) 
+        public static void EnrollStudent(OnlineLearningDbContext context, Enrollment enrollment)
         {
-            if(!context.Student.Any(i => i.Id == enrollment.StudentId))
+            if (!context.Student.Any(i => i.Id == enrollment.StudentId))
             {
                 Console.WriteLine("There Is No Student Have Id Like That");
                 return;
@@ -58,22 +58,22 @@ namespace EFCore3
                 return;
             }
 
-            if (context.Enrollment.Any(e => e.StudentId == enrollment.StudentId && e.CourseId == enrollment.CourseId)) 
+            if (context.Enrollment.Any(e => e.StudentId == enrollment.StudentId && e.CourseId == enrollment.CourseId))
             {
                 Console.WriteLine("The Student Musnt Access This Course Twice");
                 return;
-            } ;
+            };
 
             context.Add(enrollment);
             context.SaveChanges();
             Console.WriteLine($"Enrollment Was Added Successfully With StudentId {enrollment.StudentId}, And Course {enrollment.CourseId}");
         }
 
-        public static void FindCourseById(OnlineLearningDbContext context, int id) 
+        public static void FindCourseById(OnlineLearningDbContext context, int id)
         {
             var FoundedCourse = context.Course.Find(id);
 
-            if (FoundedCourse == null) 
+            if (FoundedCourse == null)
             {
                 Console.WriteLine($"There Is Bo Course With Id {id}");
             }
@@ -84,7 +84,7 @@ namespace EFCore3
 
         }
 
-        public static void FindByTitle(OnlineLearningDbContext context, string title) 
+        public static void FindByTitle(OnlineLearningDbContext context, string title)
         {
             var FoundedCourse = context.Course.FirstOrDefault(c => c.Title == title);
 
@@ -92,7 +92,7 @@ namespace EFCore3
             {
                 Console.WriteLine("not Found");
             }
-            else 
+            else
             {
                 Console.WriteLine($"Course Found: {FoundedCourse.Title} - Price: {FoundedCourse.Price}");
             }
@@ -107,8 +107,8 @@ namespace EFCore3
                     c.CourseLevel,
                     c.Price
                 }).ToList();
-            
-            foreach(var c in courses) 
+
+            foreach (var c in courses)
             {
                 Console.WriteLine($"Title: {c.Title} | Level: {c.CourseLevel} | Price: {c.Price}");
             }
@@ -118,19 +118,31 @@ namespace EFCore3
         {
             var subCategories = context.Category.AsNoTracking().Where(c => c.ParentCategoryId == categoryId);
 
-            foreach(var c in subCategories)
+            foreach (var c in subCategories)
             {
                 Console.WriteLine($"SubName : {c.Name} , Id : {c.Id}");
             }
         }
 
-        public static void FindTopCategories(OnlineLearningDbContext context) 
+        public static void FindTopCategories(OnlineLearningDbContext context)
         {
             var TopCategoreis = context.Category.AsNoTracking().Where(c => c.ParentCategoryId == null);
 
             foreach (var c in TopCategoreis)
             {
                 Console.WriteLine($"Top Category Name {c.Name} , Its Id {c.Id}");
+            }
+        }
+
+        public static void FindStudentsByCourseId(OnlineLearningDbContext context, int CourseId)
+        {
+            var StudentIds = context.Enrollment.Where(e => e.CourseId == CourseId).Select(e => e.StudentId).ToList();
+            var Students = context.Student.Where(s => StudentIds.Contains(s.Id));
+
+            Console.WriteLine($"Number Of Students For This Course {Students.Count()}");
+            foreach (var student in Students)
+            {
+                Console.WriteLine($"Student Name :- {student.FullName} , Student Id :- {student.Id}");
             }
         }
     }

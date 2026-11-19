@@ -108,8 +108,12 @@ namespace EFCore3
             #endregion
             #region Question 03
 
-            Methods.FindSubCategory(context, 1);
-            Methods.FindTopCategories(context);
+            //Methods.FindSubCategory(context, 1);
+            //Methods.FindTopCategories(context);
+            #endregion
+            #region Question 04
+
+            Methods.FindStudentsByCourseId(context, 1);
             #endregion
             #endregion
         }
