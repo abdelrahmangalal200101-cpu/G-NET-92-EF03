@@ -145,5 +145,20 @@ namespace EFCore3
                 Console.WriteLine($"Student Name :- {student.FullName} , Student Id :- {student.Id}");
             }
         }
+
+        public static void ChangeCoursePrice(OnlineLearningDbContext context , int CourseId , decimal newPrice)
+        {
+            var course = context.Course.Find(CourseId);
+
+            if (course == null)
+            {
+                Console.WriteLine("Didnt Find This Course");
+            }
+
+            course.Price = newPrice;
+            context.SaveChanges();
+            Console.WriteLine($"Course Name :- {course.Title} , New Price = {course.Price}");
+
+        }
     }
 }

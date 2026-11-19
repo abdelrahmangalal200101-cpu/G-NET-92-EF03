@@ -113,7 +113,15 @@ namespace EFCore3
             #endregion
             #region Question 04
 
-            Methods.FindStudentsByCourseId(context, 1);
+            //Methods.FindStudentsByCourseId(context, 1);
+            #endregion
+            #endregion
+            #region Update Questions 
+            #region Question 01
+            // Change a price: Load a course, change its price, and save.
+
+            //Methods.ChangeCoursePrice(context, 1, 800);
+
             #endregion
             #endregion
         }
