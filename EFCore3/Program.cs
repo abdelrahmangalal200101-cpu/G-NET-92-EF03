@@ -132,7 +132,14 @@ namespace EFCore3
             #region Question 03
             // Publish a course: Set the published flag and the published date.
 
-            Methods.PublishCourse(context, 2);
+            //Methods.PublishCourse(context, 2);
+            #endregion
+            #endregion
+            #region Delete Questions
+            #region Question 01 
+            // Unenroll: Delete an enrollment using its composite key.
+
+            Methods.DeleteEnrollment(context, 1, 1);
             #endregion
             #endregion
         }

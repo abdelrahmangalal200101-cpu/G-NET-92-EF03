@@ -209,5 +209,21 @@ namespace EFCore3
             context.SaveChanges();
             Console.WriteLine($"New Course Update Published And its Date {course.PublishedDate}");
         }
+
+        public static void DeleteEnrollment(OnlineLearningDbContext context , int stdId ,int crsId )
+        {
+            var enrollment = context.Enrollment.Find(stdId, crsId);
+
+            if( enrollment == null )
+            {
+                Console.WriteLine("Not Found");
+                return;
+            }
+
+            context.Enrollment.Remove(enrollment);
+            context.SaveChanges();
+            Console.WriteLine("Enrollment Deleted Successfully!");
+
+        }
     }
 }
